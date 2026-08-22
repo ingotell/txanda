@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14161B">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Txanda 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2314161B'/%3E%3Crect x='10' y='14' width='10' height='36' fill='%23E9268F'/%3E%3Crect x='23' y='14' width='10' height='36' fill='%23F2A50C'/%3E%3Crect x='36' y='14' width='10' height='36' fill='%23E14434'/%3E%3Crect x='49' y='14' width='5' height='36' fill='%2324B4E8'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#14161B; --panel:#1B1F27; --panel2:#232833; --line:#2E333F;
+  --ink:#ECE9E3; --mut:#8C93A3; --dim:#5B6273;
+  --E:#E9268F; --J:#F2A50C; --I:#E14434; --A:#24B4E8; --none:#39404E; --M:#3ED44B;
+  --disp:'Bricolage Grotesque',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter Tight',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --pad:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:16px;line-height:1.45;
+  padding-bottom:calc(74px + env(safe-area-inset-bottom));
+  overscroll-behavior-y:none;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.wrap{max-width:560px;margin:0 auto;padding:0 var(--pad)}
+
+/* ---------- cabecera ---------- */
+header{
+  position:sticky;top:0;z-index:40;background:rgba(20,22,27,.92);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
+}
+.hrow{display:flex;align-items:baseline;justify-content:space-between;padding:12px var(--pad) 8px;max-width:560px;margin:0 auto}
+.brand{font-family:var(--disp);font-weight:800;font-size:19px;letter-spacing:-.03em}
+.brand span{color:var(--mut);font-weight:600}
+.yr{font-family:var(--mono);font-size:12px;color:var(--mut);letter-spacing:.12em}
+
+/* ---------- LA CINTA DEL AÑO (firma) ---------- */
+.cinta{display:flex;gap:2px;align-items:flex-end;height:34px;padding:0 var(--pad) 10px;max-width:560px;margin:0 auto}
+.cbar{flex:1 1 0;min-width:0;height:100%;border-radius:2px;background:var(--none);position:relative;
+  transform-origin:bottom;animation:grow .5s cubic-bezier(.2,.9,.3,1) both}
+@keyframes grow{from{transform:scaleY(.08);opacity:0}to{transform:scaleY(1);opacity:1}}
+.cbar.now{outline:2px solid var(--ink);outline-offset:2px}
+.cbar.past{opacity:.32}
+
+/* ---------- tarjetas ---------- */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+
+/* héroe */
+.hero{position:relative;overflow:hidden;padding:20px 18px 18px}
+.hero .who{font-family:var(--disp);font-weight:800;font-size:clamp(44px,15vw,68px);line-height:.9;letter-spacing:-.045em;margin:10px 0 4px;
+  animation:rise .55s cubic-bezier(.2,.9,.3,1) both .1s}
+@keyframes rise{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
+.hero .when{font-size:15px;color:var(--mut)}
+.hero .when b{color:var(--ink);font-weight:600}
+.hero .stripe{position:absolute;left:0;top:0;bottom:0;width:6px}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+.chip.hot{border-color:currentColor}
+
+.btnrow{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{flex:1 1 140px;border:1px solid var(--line);background:var(--panel2);border-radius:11px;
+  padding:11px 12px;font-size:14px;font-weight:500;text-align:center;transition:.15s}
+.btn:active{transform:scale(.98)}
+.btn.solid{background:var(--ink);color:#14161B;border-color:var(--ink);font-weight:600}
+
+/* siguiente */
+.next{display:flex;align-items:center;gap:12px;padding:13px 16px}
+.dot{width:10px;height:10px;border-radius:3px;flex:none}
+.next .t{flex:1;min-width:0}
+.next .n{font-family:var(--disp);font-weight:600;font-size:16px;letter-spacing:-.02em}
+.next .s{font-size:13px;color:var(--mut)}
+
+/* ---------- reparto ---------- */
+.tally{margin:0}
+.trow{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.trow:last-child{border-bottom:0}
+.tname{font-family:var(--disp);font-weight:600;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.tnums{font-family:var(--mono);font-size:12.5px;color:var(--mut);white-space:nowrap;align-self:center}
+.tnums b{color:var(--ink);font-weight:700}
+.tbar{grid-column:1/-1;height:5px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.tbar i{display:block;height:100%;border-radius:99px}
+
+/* ---------- calendario ---------- */
+.mhead{display:flex;align-items:center;justify-content:space-between;margin:18px 0 8px}
+.mhead h2{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.035em;margin:0;text-transform:lowercase}
+.nav{display:flex;gap:6px}
+.nav button{width:38px;height:38px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:17px;line-height:1}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dow{font-family:var(--mono);font-size:10px;color:var(--dim);text-align:center;padding-bottom:4px;letter-spacing:.08em}
+.cell{aspect-ratio:1/1.06;border-radius:9px;background:var(--panel);border:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative;padding:2px}
+.cell.out{opacity:0;pointer-events:none}
+.cell .num{font-family:var(--mono);font-size:14px;font-weight:700}
+.cell.on{border-color:transparent}
+.cell.on .num{color:#14161B}
+.cell .fest{position:absolute;bottom:3px;width:4px;height:4px;border-radius:99px;background:var(--ink);opacity:.75}
+.cell.on .fest{background:#14161B;opacity:.6}
+.cell.today{box-shadow:0 0 0 2px var(--ink)}
+.cell .tar{position:absolute;top:3px;right:4px;font-family:var(--mono);font-size:8px;opacity:.7}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--mut)}
+.legend span{display:flex;align-items:center;gap:6px}
+
+/* ---------- listas ---------- */
+.li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.li:last-child{border-bottom:0}
+.li .dt{font-family:var(--mono);font-size:12px;color:var(--mut);width:64px;flex:none}
+.li .lb{flex:1;font-size:14.5px}
+.li .pp{font-family:var(--disp);font-weight:600;font-size:13px}
+
+/* ---------- tabs ---------- */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(20,22,27,.94);
+  backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);display:flex;justify-content:center}
+nav.tabs .in{display:flex;width:100%;max-width:560px}
+nav.tabs button{flex:1;padding:11px 4px 12px;font-size:11px;color:var(--dim);display:flex;flex-direction:column;align-items:center;gap:5px;font-family:var(--mono);letter-spacing:.06em}
+nav.tabs button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs button.sel{color:var(--ink)}
+.page{display:none}.page.sel{display:block}
+
+/* ---------- hoja inferior ---------- */
+.scrim{position:fixed;inset:0;background:rgba(8,9,12,.6);z-index:60;opacity:0;pointer-events:none;transition:.2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--panel);border-radius:20px 20px 0 0;
+  border-top:1px solid var(--line);padding:16px var(--pad) calc(20px + env(safe-area-inset-bottom));
+  transform:translateY(102%);transition:transform .26s cubic-bezier(.2,.9,.3,1);max-width:560px;margin:0 auto}
+.sheet.open{transform:none}
+.grab{width:38px;height:4px;border-radius:99px;background:var(--line);margin:0 auto 14px}
+.pick{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.pick button{border:1px solid var(--line);border-radius:11px;padding:13px;font-family:var(--disp);font-weight:600;font-size:15px;display:flex;align-items:center;gap:9px;justify-content:center}
+.pick button.act{border-color:var(--ink)}
+.toast{position:fixed;bottom:calc(88px + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,20px);
+  background:var(--ink);color:#14161B;padding:10px 16px;border-radius:99px;font-size:13.5px;font-weight:600;
+  opacity:0;transition:.25s;z-index:70;pointer-events:none;max-width:88vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+select{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:11px;
+  padding:12px 11px;font-family:var(--body);font-size:14.5px;margin-top:7px;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);
+  background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+label.fl{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);display:block;margin-top:14px}
+input.code{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:11px;
+  padding:12px 11px;font-family:var(--mono);font-size:14px;margin-top:7px}
+.prev{border:1px dashed var(--line);border-radius:12px;padding:13px;margin-top:14px}
+.prev .r{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12.5px;padding:4px 0}
+.prev .r b{font-weight:700}
+.up{color:var(--I)} .dn{color:var(--M)}
+.codebox{font-family:var(--mono);font-size:13px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:10px;padding:11px;margin-top:10px;word-break:break-all;color:var(--ink)}
+details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0;background:var(--panel)}
+details summary{cursor:pointer;font-weight:600;font-size:14.5px;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:'＋ ';color:var(--mut);font-family:var(--mono)}
+details[open] summary::before{content:'－ '}
+details p,details li{font-size:13.5px;color:var(--mut);line-height:1.55}
+h3.sec{font-family:var(--disp);font-weight:800;font-size:21px;letter-spacing:-.03em;margin:26px 0 2px}
+p.sub{color:var(--mut);font-size:13.5px;margin:2px 0 10px}
+.warn{border-left:3px solid var(--J);background:rgba(242,165,12,.07);border-radius:0 10px 10px 0;padding:11px 13px;font-size:13.5px;color:var(--mut);margin:12px 0}
+.warn b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <div class="brand">txanda<span>·familia</span></div>
+    <div class="yr" id="yrLabel">2026</div>
+  </div>
+  <div class="cinta" id="cinta"></div>
+</header>
+
+<!-- ============ HOY ============ -->
+<section class="page sel" id="p-hoy"><div class="wrap">
+  <div class="card hero" id="hero"></div>
+  <div class="card next" id="next"></div>
+
+  <h3 class="sec">Cómo va el reparto</h3>
+  <p class="sub">Lo que lleva cada uno en todo 2026.</p>
+  <div class="card tally" id="tallyMini"></div>
+
+  <h3 class="sec">Lo que cubre María</h3>
+  <p class="sub">Días que devuelve del permiso. Ese día libras tú.</p>
+  <div class="card" id="mariaNext"></div>
+
+  <h3 class="sec">Próximos festivos</h3>
+  <p class="sub">Quién los cubre.</p>
+  <div class="card" id="nextFest"></div>
+</div></section>
+
+<!-- ============ CALENDARIO ============ -->
+<section class="page" id="p-cal"><div class="wrap">
+  <div class="mhead">
+    <h2 id="mTitle">agosto</h2>
+    <div class="nav"><button id="prevM">‹</button><button id="nextM">›</button></div>
+  </div>
+  <div class="grid" id="dows"></div>
+  <div class="grid" id="days" style="margin-top:2px"></div>
+  <div class="legend" id="legend"></div>
+  <p class="sub" style="margin-top:14px">Toca cualquier día para cambiar de quién es. Los cambios se guardan solo en este móvil.</p>
+  <div class="card" id="monthList"></div>
+</div></section>
+
+<!-- ============ REPARTO ============ -->
+<section class="page" id="p-rep"><div class="wrap">
+  <h3 class="sec">Reparto 2026</h3>
+  <p class="sub">Findes completos, días, noches y festivos de cada uno.</p>
+  <div class="card tally" id="tallyFull"></div>
+
+  <details>
+    <summary>Cómo se cuenta cada cosa</summary>
+    <p><b>Finde</b>: un bloque que incluye sábado y domingo.<br>
+    <b>Día</b>: cada jornada completa. Las vísperas marcadas «7 tarde» (y Nochebuena / Nochevieja) no suman día, porque se entra a las 19:00.<br>
+    <b>Noche</b>: un día arrastra la noche anterior. Dentro de un bloque las noches van encadenadas, así que N días seguidos son N−1 noches. Un día suelto suma su noche anterior.<br>
+    <b>Festivo</b>: día festivo completo del calendario de Gipuzkoa.</p>
+  </details>
+
+  <div class="card" style="display:flex;align-items:center;gap:12px">
+    <div style="flex:1">
+      <div style="font-weight:600;font-size:14.5px">Un día suelto arrastra noche</div>
+      <div class="sub" style="margin:2px 0 0">Un festivo aislado cuenta la noche anterior. Desactívalo si en esos casos vais por la mañana.</div>
+    </div>
+    <button class="btn" id="tgSuelta" style="flex:0 0 74px;padding:9px 0">—</button>
+  </div>
+
+  <div class="warn" id="cuadre"></div>
+
+  <h3 class="sec">María</h3>
+  <p class="sub">18 días de recuperación del permiso, seis por cabeza, y su periodo de vacaciones.</p>
+  <div class="card" id="mariaVac"></div>
+  <div id="mariaList"></div>
+
+  <h3 class="sec">Turno a turno</h3>
+  <p class="sub">Todos los bloques del año, por persona.</p>
+  <div id="blocks"></div>
+</div></section>
+
+<!-- ============ CAMBIOS ============ -->
+<section class="page" id="p-swp"><div class="wrap">
+  <h3 class="sec">Cambiar un turno</h3>
+  <p class="sub">Elige el turno que sueltas y el que coges a cambio. Antes de confirmar ves cómo queda el reparto.</p>
+
+  <div class="card">
+    <label class="fl">Turno que suelta</label>
+    <select id="swA"></select>
+    <label class="fl">Se lo queda</label>
+    <select id="swWho"></select>
+    <label class="fl">Y a cambio se coge</label>
+    <select id="swB"></select>
+    <div id="swPrev"></div>
+    <div class="btnrow"><button class="btn solid" id="swDo">Confirmar el cambio</button></div>
+  </div>
+
+  <h3 class="sec">Cambios pendientes de devolver</h3>
+  <p class="sub">Turnos que alguien cubrió sin recibir nada a cambio.</p>
+  <div class="card" id="swSaldo"></div>
+
+  <h3 class="sec">Historial</h3>
+  <p class="sub">Todo lo que se ha movido, por si hay dudas.</p>
+  <div class="card" id="swLog"></div>
+
+  <h3 class="sec">Un cambio que te han mandado</h3>
+  <p class="sub">Pega aquí el código que llega por WhatsApp y tu móvil queda igual que el suyo.</p>
+  <div class="card">
+    <input class="code" id="swCode" placeholder="TX1.66J.67J.143I.144I" autocomplete="off" autocapitalize="characters">
+    <div class="btnrow"><button class="btn solid" id="swApply">Aplicar</button></div>
+  </div>
+</div></section>
+
+<!-- ============ AVISOS ============ -->
+<section class="page" id="p-set"><div class="wrap">
+  <h3 class="sec">Avisos</h3>
+  <p class="sub">Tres formas de que nadie se despiste.</p>
+
+  <div class="card">
+    <div class="eyebrow">Lo más fiable</div>
+    <div style="font-family:var(--disp);font-weight:600;font-size:18px;letter-spacing:-.02em;margin:6px 0 4px">Meterlo en el calendario del móvil</div>
+    <p class="sub">Descarga el archivo y ábrelo con Google Calendar. Cada turno entra como evento con aviso dos tardes antes y la tarde anterior. Funciona aunque no abras esta app, y se lo puedes pasar a tus hermanos por WhatsApp.</p>
+    <div class="btnrow">
+      <button class="btn solid" id="icsAll">Descargar todos los turnos</button>
+      <button class="btn" id="icsMine">Solo los míos</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Para el grupo</div>
+    <div style="font-family:var(--disp);font-weight:600;font-size:18px;letter-spacing:-.02em;margin:6px 0 4px">Mandar el recordatorio</div>
+    <p class="sub">Genera el mensaje del finde que viene y lo comparte por WhatsApp.</p>
+    <div class="btnrow"><button class="btn solid" id="waNext">Avisar del próximo turno</button></div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Extra</div>
+    <div style="font-family:var(--disp);font-weight:600;font-size:18px;letter-spacing:-.02em;margin:6px 0 4px">Aviso dentro de la app</div>
+    <p class="sub">Salta un aviso los jueves si tienes la app abierta o instalada en la pantalla de inicio. Es un apoyo, no lo dejes como único recordatorio.</p>
+    <div class="btnrow"><button class="btn" id="notifBtn">Activar avisos</button></div>
+  </div>
+
+  <h3 class="sec">Quién usa este móvil</h3>
+  <p class="sub">Si eres familiar y solo quieres consultarlo, elige «Solo mirar»: nadie toca el calendario sin querer.</p>
+  <div class="card"><div class="pick" id="rolePick"></div></div>
+
+  <h3 class="sec">Tus datos</h3>
+  <p class="sub">Los cambios que hagas se guardan en este móvil. Expórtalos para pasárselos a otro.</p>
+  <div class="card">
+    <div class="btnrow">
+      <button class="btn" id="expJson">Exportar cambios</button>
+      <button class="btn" id="impJson">Importar cambios</button>
+      <button class="btn" id="resetJson">Volver al original</button>
+    </div>
+  </div>
+
+  <details>
+    <summary>Instalarlo en la pantalla de inicio</summary>
+    <p>En Android, Chrome → menú ⋮ → «Añadir a pantalla de inicio».<br>
+    En iPhone, Safari → compartir → «Añadir a pantalla de inicio».<br>
+    Se abre a pantalla completa y funciona sin cobertura.</p>
+  </details>
+
+  <details>
+    <summary>De dónde salen los datos</summary>
+    <p>De la hoja «Calendario 2026», leyendo el color con el que está pintado cada día: rosa Elentxu, amarillo Joseba, rojo Iñigo, azul Ander. 127 días repartidos, 52 findes y 24 festivos.</p>
+  </details>
+
+  <p class="sub" style="text-align:center;margin:28px 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.1em">TXANDA · 2026</p>
+</div></section>
+
+<nav class="tabs"><div class="in">
+  <button class="sel" data-p="hoy"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>HOY</button>
+  <button data-p="cal"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>CALENDARIO</button>
+  <button data-p="rep"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>REPARTO</button>
+  <button data-p="swp"><svg viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 6h18"/><path d="M7 22l-4-4 4-4"/><path d="M21 18H3"/></svg>CAMBIOS</button>
+  <button data-p="set"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 8-3 8h18s-3-1-3-8"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>AVISOS</button>
+</div></nav>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet">
+  <div class="grab"></div>
+  <div class="eyebrow" id="shDate">—</div>
+  <div style="font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.03em;margin:4px 0 2px" id="shTitle">—</div>
+  <p class="sub" id="shSub" style="margin-bottom:0">¿De quién es este día?</p>
+  <div class="pick" id="shPick"></div>
+  <div class="btnrow"><button class="btn" id="shTarde">Marcar «7 tarde»</button><button class="btn" id="shClose">Listo</button></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ======================= DATOS ======================= */
+const ASIG_BASE = {"2026-01-01":"I","2026-01-03":"E","2026-01-04":"E","2026-01-06":"E","2026-01-10":"J","2026-01-11":"J","2026-01-17":"I","2026-01-18":"I","2026-01-24":"E","2026-01-25":"E","2026-01-31":"I","2026-02-01":"I","2026-02-07":"J","2026-02-08":"J","2026-02-14":"I","2026-02-15":"I","2026-02-16":"A","2026-02-21":"E","2026-02-22":"E","2026-02-28":"J","2026-03-01":"J","2026-03-07":"I","2026-03-08":"I","2026-03-14":"E","2026-03-15":"E","2026-03-18":"I","2026-03-19":"I","2026-03-21":"J","2026-03-22":"J","2026-03-28":"E","2026-03-29":"E","2026-04-01":"J","2026-04-02":"J","2026-04-03":"I","2026-04-04":"I","2026-04-05":"I","2026-04-06":"E","2026-04-11":"J","2026-04-12":"J","2026-04-18":"E","2026-04-19":"E","2026-04-25":"I","2026-04-26":"I","2026-04-30":"E","2026-05-01":"J","2026-05-02":"J","2026-05-03":"J","2026-05-09":"E","2026-05-10":"E","2026-05-16":"I","2026-05-17":"I","2026-05-23":"J","2026-05-24":"J","2026-05-30":"E","2026-05-31":"E","2026-06-06":"I","2026-06-07":"I","2026-06-13":"J","2026-06-14":"J","2026-06-20":"I","2026-06-21":"I","2026-06-23":"E","2026-06-24":"E","2026-06-27":"J","2026-06-28":"J","2026-07-04":"J","2026-07-05":"J","2026-07-11":"E","2026-07-12":"E","2026-07-18":"I","2026-07-19":"I","2026-07-24":"J","2026-07-25":"J","2026-07-26":"J","2026-07-30":"I","2026-07-31":"I","2026-08-01":"E","2026-08-02":"E","2026-08-08":"I","2026-08-09":"I","2026-08-14":"E","2026-08-15":"E","2026-08-16":"E","2026-08-22":"J","2026-08-23":"J","2026-08-29":"I","2026-08-30":"I","2026-09-05":"J","2026-09-06":"J","2026-09-12":"E","2026-09-13":"E","2026-09-19":"I","2026-09-20":"I","2026-09-26":"J","2026-09-27":"J","2026-10-03":"E","2026-10-04":"E","2026-10-10":"I","2026-10-11":"I","2026-10-12":"E","2026-10-17":"J","2026-10-18":"J","2026-10-24":"E","2026-10-25":"E","2026-10-31":"I","2026-11-01":"I","2026-11-07":"J","2026-11-08":"J","2026-11-14":"E","2026-11-15":"E","2026-11-21":"I","2026-11-22":"I","2026-11-28":"J","2026-11-29":"J","2026-12-05":"E","2026-12-06":"E","2026-12-07":"J","2026-12-08":"J","2026-12-12":"I","2026-12-13":"I","2026-12-19":"J","2026-12-20":"J","2026-12-24":"I","2026-12-25":"I","2026-12-26":"E","2026-12-27":"E","2026-12-31":"I"};
+const FEST = {"2026-01-01":"AÑO NUEVO","2026-01-06":"REYES","2026-02-12":"JUEVES GORDO","2026-02-13":"VIERNES FLACO","2026-02-14":"SABADO REGULAR","2026-02-15":"DOMINGO CARNAVAL","2026-02-16":"LUNES CARNAVAL","2026-02-17":"MARTES CARNAVAL","2026-03-19":"SAN JOSE","2026-04-02":"S.SANTA","2026-04-03":"S.SANTA","2026-04-06":"LUNES DE PASCUA","2026-05-01":"DIA DEL TRABAJO","2026-06-24":"SAN JUAN","2026-07-25":"SANTIAGO","2026-07-31":"SAN.IGNACIO","2026-08-15":"ASUNCION","2026-10-12":"F.NACIONAL","2026-11-01":"TODOS SANTOS","2026-12-06":"CONSTITUCION","2026-12-08":"INMACULADA","2026-12-24":"NOCHEBUENA","2026-12-25":"NAVIDAD","2026-12-31":"NOCHEVIEJA"};
+const TARDE_BASE = ["2026-03-18","2026-04-01","2026-04-30","2026-06-23","2026-07-24","2026-07-30","2026-08-14","2026-12-07","2026-12-24","2026-12-31"];
+
+const P = {
+  E:{n:'Elentxu', c:'#E9268F'},
+  J:{n:'Joseba',  c:'#F2A50C'},
+  I:{n:'Iñigo',   c:'#E14434'},
+  A:{n:'Ander',   c:'#24B4E8'}
+};
+const ORDER = ['E','J','I','A'];
+const YEAR = 2026;
+/* totales escritos a mano en la hoja original, para cuadrar */
+const HOJA = {E:{f:17,d:38,n:21}, J:{f:18,d:39,n:22}, I:{f:17,d:39,n:22}, A:{f:0,d:1,n:1}};
+/* etiquetas más claras que las de la hoja */
+/* Días que María devuelve: cubre ella y el hermano libra */
+const MARIA = {"2026-03-19":"I","2026-04-02":"J","2026-04-03":"I","2026-04-06":"E","2026-05-01":"J","2026-05-03":"J","2026-05-17":"I","2026-06-07":"I","2026-06-24":"E","2026-07-12":"E","2026-09-13":"E","2026-09-27":"J","2026-10-12":"E","2026-11-01":"I","2026-11-08":"J","2026-12-06":"E","2026-12-08":"J","2026-12-13":"I"};
+const VAC = ['2026-07-17','2026-09-02'];   // vacaciones de María, 48 días
+const FIX = {'2026-04-02':'Jueves Santo','2026-04-03':'Viernes Santo','2026-07-31':'San Ignacio','2026-10-12':'Fiesta Nacional'};
+
+/* ======================= ESTADO ======================= */
+const LS = 'txanda2026';
+let ov = {};                       // { fecha: {p:'I'|null, t:0|1} }
+try{ ov = JSON.parse(localStorage.getItem(LS)||'{}'); }catch(e){ ov = {}; }
+const save = ()=>{ try{ localStorage.setItem(LS, JSON.stringify(ov)); }catch(e){} };
+let SUELTA = localStorage.getItem('txandaSuelta')!=='0';
+let ROLE = localStorage.getItem('txandaMe')||'';          // 'E','J','I','A' o 'ver'
+const readonly = ()=> ROLE==='ver' || !ROLE;   // un día suelto arrastra la noche anterior
+
+const iso = d => d.toISOString().slice(0,10);
+const D   = s => new Date(s+'T12:00:00');
+const owner = s => (s in ov) ? ov[s].p : (ASIG_BASE[s]||null);
+const tarde = s => (s in ov && 't' in ov[s]) ? !!ov[s].t : TARDE_BASE.includes(s);
+const festN = s => FIX[s] || FEST[s] || null;
+
+const MES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const DOW = ['dom','lun','mar','mié','jue','vie','sáb'];
+const fmt = s => { const d=D(s); return DOW[d.getDay()]+' '+d.getDate()+' '+MES[d.getMonth()].slice(0,3); };
+const fmtL= s => { const d=D(s); return DOW[d.getDay()]+' '+d.getDate()+' de '+MES[d.getMonth()]; };
+
+const ALL = (()=>{ const a=[],d=new Date(YEAR,0,1); while(d.getFullYear()===YEAR){ a.push(iso(new Date(d.getTime()-d.getTimezoneOffset()*6e4))); d.setDate(d.getDate()+1);} return a; })();
+const TODAY = (()=>{ const t=new Date(); const s=iso(new Date(t.getTime()-t.getTimezoneOffset()*6e4)); return s; })();
+
+/* ---- bloques: días consecutivos de la misma persona ---- */
+function blocks(){
+  const out=[]; let cur=null;
+  ALL.forEach(s=>{
+    const p=owner(s);
+    if(p && cur && cur.p===p && (D(s)-D(cur.days[cur.days.length-1]))/864e5===1){ cur.days.push(s); }
+    else { if(cur) out.push(cur); cur = p? {p, days:[s]} : null; }
+  });
+  if(cur) out.push(cur);
+  return out;
+}
+/* ---- cuentas ---- */
+function tally(){
+  const t={}; ORDER.forEach(k=>t[k]={f:0,d:0,n:0,h:0,m:0,blk:[]});
+  Object.keys(MARIA).forEach(s=>{ if(t[MARIA[s]]) t[MARIA[s]].m++; });
+  blocks().forEach(b=>{
+    const T=t[b.p]; if(!T) return;
+    T.blk.push(b);
+    const dows=b.days.map(s=>D(s).getDay());
+    if(dows.includes(6)&&dows.includes(0)) T.f++;
+    b.days.forEach(s=>{ if(!tarde(s)) T.d++; if(festN(s)&&!tarde(s)) T.h++; });
+    T.n += b.days.length>1 ? (b.days.length-1) : (SUELTA?1:0);
+  });
+  return t;
+}
+
+/* ======================= PINTAR ======================= */
+const $ = s=>document.querySelector(s);
+const el = (t,c,h)=>{ const e=document.createElement(t); if(c)e.className=c; if(h!=null)e.innerHTML=h; return e; };
+
+/* --- cinta del año: un trazo por finde --- */
+function cinta(){
+  const box=$('#cinta'); box.innerHTML='';
+  const sats=ALL.filter(s=>D(s).getDay()===6);
+  sats.forEach((s,i)=>{
+    const p=owner(s)||owner(ALL[ALL.indexOf(s)+1]);
+    const b=el('div','cbar');
+    b.style.background = p? P[p].c : 'var(--none)';
+    b.style.animationDelay=(i*7)+'ms';
+    if(s < TODAY) b.classList.add('past');
+    const dd=D(s), t=D(TODAY);
+    if(Math.abs(dd-t)/864e5 < 3.5) b.classList.add('now');
+    b.title = fmt(s)+(p?' · '+P[p].n:'');
+    b.onclick=()=>{ month=D(s).getMonth(); go('cal'); drawMonth(); flash(s); };
+    box.appendChild(b);
+  });
+}
+function flash(s){ setTimeout(()=>{ const c=document.querySelector('[data-d="'+s+'"]'); if(c){ c.classList.add('today'); setTimeout(()=>c.classList.remove('today'),1600);} },80); }
+
+/* --- bloque actual / siguiente --- */
+function currentBlock(){
+  const bs=blocks();
+  for(const b of bs) if(b.days[0]<=TODAY && TODAY<=b.days[b.days.length-1]) return {b, live:true};
+  for(const b of bs) if(b.days[0]>TODAY) return {b, live:false};
+  return null;
+}
+function nextAfter(b){ const bs=blocks(); const i=bs.findIndex(x=>x.days[0]===b.days[0]); return bs[i+1]||null; }
+
+function drawHero(){
+  const cb=currentBlock(); const h=$('#hero');
+  if(!cb){ h.innerHTML='<div class="eyebrow">Fin del año</div><div class="who">—</div><div class="when">No quedan turnos en 2026.</div>'; return; }
+  const {b,live}=cb, c=P[b.p].c;
+  const a=b.days[0], z=b.days[b.days.length-1];
+  const dias=Math.round((D(a)-D(TODAY))/864e5);
+  const label = live? 'AHORA MISMO' : (b.days.some(s=>D(s).getDay()===6)?'ESTE FINDE':'PRÓXIMO TURNO');
+  const cd = live? 'Está en marcha' : dias===1?'Mañana':dias===0?'Hoy':'Faltan '+dias+' días';
+  const rango = a===z ? fmtL(a) : fmt(a)+' – '+fmtL(z);
+  const fests = b.days.filter(s=>festN(s)).map(s=>festN(s));
+  h.innerHTML =
+    '<div class="stripe" style="background:'+c+'"></div>'+
+    '<div class="eyebrow">'+label+'</div>'+
+    '<div class="who" style="color:'+c+'">'+P[b.p].n+'</div>'+
+    '<div class="when"><b>'+rango+'</b></div>'+
+    '<div style="margin-top:9px;display:flex;gap:7px;flex-wrap:wrap">'+
+      '<span class="chip hot" style="color:'+c+'">'+cd+'</span>'+
+      (fests.length?'<span class="chip">'+fests.join(' · ')+'</span>':'')+
+      (b.days.some(s=>tarde(s))?'<span class="chip">entra 19:00</span>':'')+
+      (b.days.some(s=>MARIA[s])?'<span class="chip hot" style="color:var(--M)">'+b.days.filter(s=>MARIA[s]).map(s=>fmt(s)).join(', ')+': lo cubre María</span>':'')+
+    '</div>'+
+    '<div class="btnrow"><button class="btn solid" id="heroWa">Avisar por WhatsApp</button><button class="btn" id="heroIcs">Añadir al calendario</button></div>';
+  $('#heroWa').onclick=()=>shareBlock(b);
+  $('#heroIcs').onclick=()=>dlIcs([b],'txanda-'+P[b.p].n.toLowerCase());
+  const nb = nextAfter(b), n=$('#next');
+  if(nb){
+    const na=nb.days[0], nz=nb.days[nb.days.length-1];
+    n.innerHTML='<div class="dot" style="background:'+P[nb.p].c+'"></div><div class="t"><div class="n">Después: '+P[nb.p].n+'</div><div class="s">'+(na===nz?fmtL(na):fmt(na)+' – '+fmtL(nz))+'</div></div>';
+  } else n.style.display='none';
+}
+
+function drawTally(node, full){
+  const t=tally(), max=Math.max(...ORDER.map(k=>t[k].d))||1;
+  node.innerHTML='';
+  ORDER.forEach(k=>{
+    const T=t[k], r=el('div','trow');
+    r.innerHTML='<div class="tname"><span class="dot" style="background:'+P[k].c+'"></span>'+P[k].n+'</div>'+
+      '<div class="tnums"><b>'+T.f+'</b> findes · <b>'+T.d+'</b> días · <b>'+T.n+'</b> noches'+(full?' · <b>'+T.h+'</b> fest. · <b style="color:var(--M)">'+T.m+'</b> María':'')+'</div>'+
+      '<div class="tbar"><i style="width:'+(T.d/max*100)+'%;background:'+P[k].c+'"></i></div>';
+    node.appendChild(r);
+  });
+}
+
+function drawCuadre(){
+  const t=tally(), difs=[];
+  ORDER.forEach(k=>{
+    const T=t[k], H=HOJA[k];
+    if(T.f!==H.f) difs.push(P[k].n+' '+T.f+'/'+H.f+' findes');
+    if(T.d!==H.d) difs.push(P[k].n+' '+T.d+'/'+H.d+' días');
+    if(T.n!==H.n) difs.push(P[k].n+' '+T.n+'/'+H.n+' noches');
+  });
+  $('#cuadre').innerHTML = difs.length
+    ? '<b>Cuadre con la hoja de Excel (app/hoja):</b> '+difs.join(' · ')+'.<br>Findes y días cuadran. La diferencia en noches está en los festivos sueltos: Lunes de Pascua y Fiesta Nacional de Elentxu, y Año Nuevo de Iñigo. Con el interruptor de arriba los cuentas o no.'
+    : '<b>Todo cuadra con la hoja de Excel.</b>';
+}
+
+function drawBlocks(){
+  const t=tally(), box=$('#blocks'); box.innerHTML='';
+  ORDER.forEach(k=>{
+    const d=el('details'); const T=t[k];
+    d.innerHTML='<summary><span class="dot" style="background:'+P[k].c+';display:inline-block;margin-right:8px"></span>'+P[k].n+' · '+T.blk.length+' turnos</summary>';
+    const l=el('div');
+    T.blk.forEach(b=>{
+      const a=b.days[0], z=b.days[b.days.length-1];
+      const f=b.days.map(s=>festN(s)).filter(Boolean).join(' · ');
+      l.appendChild(el('div','li','<div class="dt">'+fmt(a)+'</div><div class="lb">'+(a===z?'1 día':b.days.length+' días, hasta '+fmt(z))+(f?' <span style="color:var(--mut)">— '+f+'</span>':'')+'</div>'));
+    });
+    d.appendChild(l); box.appendChild(d);
+  });
+}
+
+function drawMaria(){
+  const box=$('#mariaNext'); box.innerHTML='';
+  const next=Object.keys(MARIA).filter(s=>s>=TODAY).sort().slice(0,4);
+  if(!next.length){ box.innerHTML='<p class="sub" style="margin:0">Ya no quedan días de María en 2026.</p>'; }
+  next.forEach(s=>{
+    const k=MARIA[s];
+    box.appendChild(el('div','li','<div class="dt">'+fmt(s)+'</div><div class="lb">'+(festN(s)||'Domingo')+
+      ' <span style="color:var(--M)">— lo cubre María</span></div><div class="pp" style="color:'+P[k].c+'">'+
+      (ROLE===k?'libras tú':'libra '+P[k].n)+'</div>'));
+  });
+  const v=$('#mariaVac');
+  const dias=Math.round((D(VAC[1])-D(VAC[0]))/864e5)+1;
+  v.innerHTML='<div class="eyebrow">Vacaciones</div><div style="font-family:var(--disp);font-weight:600;font-size:17px;letter-spacing:-.02em;margin:5px 0 3px">'+
+    fmt(VAC[0])+' – '+fmtL(VAC[1])+'</div><p class="sub" style="margin:0">'+dias+' días seguidos. Durante ese tiempo los turnos siguen como están en el calendario.</p>';
+  const L=$('#mariaList'); L.innerHTML='';
+  ORDER.forEach(k=>{
+    const mine=Object.keys(MARIA).filter(s=>MARIA[s]===k).sort();
+    if(!mine.length) return;
+    const d=el('details');
+    d.innerHTML='<summary><span class="dot" style="background:'+P[k].c+';display:inline-block;margin-right:8px"></span>'+P[k].n+' · '+mine.length+' días</summary>';
+    const l=el('div');
+    mine.forEach(s=>l.appendChild(el('div','li','<div class="dt">'+fmt(s)+'</div><div class="lb">'+(festN(s)||'Domingo')+'</div><div class="pp" style="color:var(--M)">María</div>')));
+    d.appendChild(l); L.appendChild(d);
+  });
+}
+
+function drawRole(){
+  const pk=$('#rolePick'); pk.innerHTML='';
+  ORDER.forEach(k=>{ const b=el('button','',P[k].n); b.style.color=P[k].c;
+    if(ROLE===k) b.classList.add('act');
+    b.onclick=()=>setRole(k); pk.appendChild(b); });
+  const v=el('button','','Solo mirar'); v.style.color='var(--mut)'; v.style.gridColumn='1/-1';
+  if(ROLE==='ver') v.classList.add('act');
+  v.onclick=()=>setRole('ver'); pk.appendChild(v);
+}
+function setRole(r){ ROLE=r; localStorage.setItem('txandaMe',r); refresh();
+  toast(r==='ver'?'Modo consulta: no se puede editar':'Hola, '+P[r].n); }
+
+function drawFest(){
+  const box=$('#nextFest'); box.innerHTML='';
+  const list=Object.keys(FEST).filter(s=>s>=TODAY).slice(0,6);
+  if(!list.length){ box.innerHTML='<p class="sub" style="margin:0">Ya no quedan festivos en 2026.</p>'; return; }
+  list.forEach(s=>{
+    const p=owner(s);
+    box.appendChild(el('div','li','<div class="dt">'+fmt(s)+'</div><div class="lb">'+festN(s)+'</div>'+
+      (p?'<div class="pp" style="color:'+P[p].c+'">'+P[p].n+'</div>':'<div class="pp" style="color:var(--dim)">sin asignar</div>')));
+  });
+}
+
+/* --- calendario --- */
+let month = (new Date().getFullYear()===YEAR)? new Date().getMonth() : 0;
+function drawMonth(){
+  $('#mTitle').textContent=MES[month];
+  const dw=$('#dows'); if(!dw.children.length) ['L','M','X','J','V','S','D'].forEach(x=>dw.appendChild(el('div','dow',x)));
+  const g=$('#days'); g.innerHTML='';
+  const first=new Date(YEAR,month,1), off=(first.getDay()+6)%7;
+  for(let i=0;i<off;i++) g.appendChild(el('div','cell out'));
+  const last=new Date(YEAR,month+1,0).getDate();
+  for(let n=1;n<=last;n++){
+    const s=YEAR+'-'+String(month+1).padStart(2,'0')+'-'+String(n).padStart(2,'0');
+    const p=owner(s), c=el('div','cell'); c.dataset.d=s;
+    if(p){ c.classList.add('on'); c.style.background=P[p].c; }
+    if(MARIA[s]) c.style.boxShadow='inset 0 0 0 2.5px var(--M)';
+    if(s===TODAY) c.classList.add('today');
+    c.innerHTML='<span class="num">'+n+'</span>'+(festN(s)?'<span class="fest"></span>':'')+(tarde(s)?'<span class="tar">19h</span>':'');
+    c.onclick=()=>{ openSheet(s); $('#scrim').classList.add('open'); $('#sheet').classList.add('open'); };
+    g.appendChild(c);
+  }
+  const lg=$('#legend'); lg.innerHTML='';
+  ORDER.forEach(k=>lg.appendChild(el('span','','<span class="dot" style="background:'+P[k].c+'"></span>'+P[k].n)));
+  lg.appendChild(el('span','','<span class="dot" style="background:var(--none)"></span>libre'));
+  lg.appendChild(el('span','','<span class="dot" style="background:transparent;box-shadow:inset 0 0 0 2.5px var(--M)"></span>lo cubre María'));
+  const ml=$('#monthList'); ml.innerHTML='';
+  const rows=ALL.filter(s=>D(s).getMonth()===month && (owner(s)||festN(s)));
+  if(!rows.length) ml.innerHTML='<p class="sub" style="margin:0">Este mes no tiene nada marcado.</p>';
+  rows.forEach(s=>{
+    const p=owner(s);
+    ml.appendChild(el('div','li','<div class="dt">'+fmt(s)+'</div><div class="lb">'+(festN(s)||(tarde(s)?'Víspera, entra a las 19:00':'Turno'))+
+      (MARIA[s]?' <span style="color:var(--M)">— libras, lo cubre María</span>':'')+'</div>'+
+      (p?'<div class="pp" style="color:'+P[p].c+'">'+P[p].n+'</div>':''))); 
+  });
+}
+$('#prevM').onclick=()=>{ if(month>0){month--;drawMonth();} };
+$('#nextM').onclick=()=>{ if(month<11){month++;drawMonth();} };
+
+/* --- hoja de edición --- */
+let shD=null;
+function openSheet(s){
+  shD=s;
+  $('#shDate').textContent=fmtL(s).toUpperCase();
+  $('#shTitle').textContent=festN(s)||'Día normal';
+  const p=owner(s);
+  $('#shSub').innerHTML = MARIA[s]
+    ? '<span style="color:var(--M)">Lo cubre María</span> — '+(p?P[p].n+' libra ese día.':'día devuelto del permiso.')
+    : (readonly()? (p? 'Le toca a '+P[p].n+'.' : 'Nadie tiene este día.') : '¿De quién es este día?');
+  const pk=$('#shPick'); pk.innerHTML='';
+  const ed=$('#shTarde');
+  if(readonly()){ ed.style.display='none'; return; }
+  ed.style.display='';
+  ORDER.forEach(k=>{
+    const b=el('button','',(owner(s)===k?'✓ ':'')+P[k].n); b.style.color=P[k].c;
+    if(owner(s)===k) b.classList.add('act');
+    b.onclick=()=>setDay(s,k); pk.appendChild(b);
+  });
+  const b=el('button','','Dejar libre'); b.style.color='var(--mut)';
+  if(!owner(s)) b.classList.add('act');
+  b.onclick=()=>setDay(s,null); b.style.gridColumn='1/-1'; pk.appendChild(b);
+  ed.textContent = tarde(s)?'Quitar «7 tarde»':'Marcar «7 tarde»';
+}
+function closeSheet(){ $('#scrim').classList.remove('open'); $('#sheet').classList.remove('open'); }
+function setDay(s,p){ ov[s]=Object.assign({},ov[s],{p:p}); save(); refresh(); openSheet(s); toast(p?P[p].n+' se queda con el '+fmt(s):'Día liberado'); }
+$('#shTarde').onclick=()=>{ if(!shD)return; ov[shD]=Object.assign({},ov[shD],{p:owner(shD),t:tarde(shD)?0:1}); save(); refresh(); openSheet(shD); };
+$('#shClose').onclick=closeSheet; $('#scrim').onclick=closeSheet;
+
+/* ======================= AVISOS ======================= */
+function msgFor(b){
+  const a=b.days[0], z=b.days[b.days.length-1];
+  const rango = a===z ? fmtL(a) : fmt(a)+' a '+fmtL(z);
+  const f=b.days.map(s=>festN(s)).filter(Boolean);
+  return 'Oye, este turno le toca a '+P[b.p].n.toUpperCase()+' 👉 '+rango+
+         (f.length?' ('+f.join(', ')+')':'')+
+         (b.days.some(s=>tarde(s))?'. Se entra a las 19:00':'')+'.'+
+         (b.days.filter(s=>MARIA[s]).map(s=>' Ojo: el '+fmt(s)+' lo cubre María, ese día libras.').join(''));
+}
+async function shareBlock(b){
+  const txt=msgFor(b);
+  if(navigator.share){ try{ await navigator.share({text:txt}); return; }catch(e){ if(e.name==='AbortError') return; } }
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+function pad(n){ return String(n).padStart(2,'0'); }
+function icsDate(s,plus){ const d=D(s); d.setDate(d.getDate()+(plus||0)); return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate()); }
+function dlIcs(bs,name){
+  let out=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Txanda//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:Txanda familia '+YEAR];
+  bs.forEach((b,i)=>{
+    const a=b.days[0], z=b.days[b.days.length-1];
+    const f=b.days.map(s=>festN(s)).filter(Boolean).join(', ');
+    out.push('BEGIN:VEVENT','UID:txanda-'+a+'-'+b.p+'@familia','DTSTAMP:'+icsDate(TODAY)+'T080000Z',
+      'DTSTART;VALUE=DATE:'+icsDate(a),'DTEND;VALUE=DATE:'+icsDate(z,1),
+      'SUMMARY:Txanda: '+P[b.p].n+(f?' ('+f+')':''),
+      'DESCRIPTION:'+msgFor(b).replace(/,/g,'\\,'),
+      'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM','TRIGGER:-P1DT8H','ACTION:DISPLAY','DESCRIPTION:Pasado mañana toca '+P[b.p].n,'END:VALARM',
+      'BEGIN:VALARM','TRIGGER:-PT8H','ACTION:DISPLAY','DESCRIPTION:Mañana toca '+P[b.p].n,'END:VALARM',
+      'END:VEVENT');
+  });
+  Object.keys(MARIA).sort().forEach(s=>{
+    if(!bs.some(b=>b.p===MARIA[s])) return;
+    out.push('BEGIN:VEVENT','UID:maria-'+s+'@familia','DTSTAMP:'+icsDate(TODAY)+'T080000Z',
+      'DTSTART;VALUE=DATE:'+icsDate(s),'DTEND;VALUE=DATE:'+icsDate(s,1),
+      'SUMMARY:Libras: lo cubre María'+(festN(s)?' ('+festN(s)+')':''),
+      'DESCRIPTION:Día devuelto del permiso de María. Le correspondía a '+P[MARIA[s]].n+'.',
+      'TRANSP:TRANSPARENT',
+      'BEGIN:VALARM','TRIGGER:-PT8H','ACTION:DISPLAY','DESCRIPTION:Mañana lo cubre María','END:VALARM',
+      'END:VEVENT');
+  });
+  out.push('END:VCALENDAR');
+  const blob=new Blob([out.join('\r\n')],{type:'text/calendar;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name+'.ics'; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  toast(bs.length+' turnos listos para el calendario');
+}
+$('#icsAll').onclick=()=>dlIcs(blocks(),'txanda-2026-todos');
+$('#icsMine').onclick=()=>{
+  if(!ROLE||ROLE==='ver'){ go('set'); toast('Elige antes quién eres'); return; }
+  dlIcs(blocks().filter(b=>b.p===ROLE),'txanda-2026-'+P[ROLE].n.toLowerCase());
+};
+$('#waNext').onclick=()=>{ const cb=currentBlock(); if(cb) shareBlock(cb.b); };
+$('#notifBtn').onclick=async()=>{
+  if(!('Notification' in window)) return toast('Este móvil no admite avisos');
+  const r=await Notification.requestPermission();
+  if(r!=='granted') return toast('Avisos no permitidos');
+  localStorage.setItem('txandaNotif','1');
+  const cb=currentBlock();
+  new Notification('Txanda', {body: cb? msgFor(cb.b) : 'Avisos activados'});
+  toast('Avisos activados');
+};
+
+/* datos */
+$('#expJson').onclick=()=>{
+  const blob=new Blob([JSON.stringify(ov,null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='txanda-cambios.json'; a.click();
+  toast('Cambios exportados');
+};
+$('#impJson').onclick=()=>{
+  const i=document.createElement('input'); i.type='file'; i.accept='.json';
+  i.onchange=()=>{ const f=i.files[0]; if(!f)return; const r=new FileReader();
+    r.onload=()=>{ try{ ov=JSON.parse(r.result); save(); refresh(); toast('Cambios importados'); }catch(e){ toast('El archivo no vale'); } };
+    r.readAsText(f); };
+  i.click();
+};
+$('#resetJson').onclick=()=>{ if(confirm('¿Borrar todos tus cambios y volver a la hoja original?')){ ov={}; save(); refresh(); toast('Vuelta al original'); } };
+
+
+/* ======================= CAMBIO DE TXANDA ======================= */
+let LOG=[]; try{ LOG=JSON.parse(localStorage.getItem('txandaLog')||'[]'); }catch(e){ LOG=[]; }
+const saveLog=()=>{ try{ localStorage.setItem('txandaLog',JSON.stringify(LOG)); }catch(e){} };
+
+const doy = s => Math.round((D(s)-D(YEAR+'-01-01'))/864e5)+1;
+const fromDoy = n => { const d=new Date(YEAR,0,n); return YEAR+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); };
+function encode(ch){ return 'TX1.'+ch.map(c=>doy(c.d)+(c.p||'0')).join('.'); }
+function decode(txt){
+  const t=(txt||'').trim().toUpperCase().replace(/\s/g,'');
+  if(!t.startsWith('TX1.')) return null;
+  const out=[];
+  for(const part of t.slice(4).split('.')){
+    const m=part.match(/^(\d{1,3})([EJIA0])$/); if(!m) return null;
+    const n=+m[1]; if(n<1||n>366) return null;
+    out.push({d:fromDoy(n), p:m[2]==='0'?null:m[2]});
+  }
+  return out.length?out:null;
+}
+function applyChanges(ch){
+  const before=ch.map(c=>({d:c.d,p:owner(c.d)}));
+  ch.forEach(c=>{ ov[c.d]=Object.assign({},ov[c.d],{p:c.p}); });
+  save(); return before;
+}
+
+/* --- opciones de los desplegables --- */
+function blockLabel(b){
+  const a=b.days[0], z=b.days[b.days.length-1];
+  const f=b.days.map(s=>festN(s)).filter(Boolean);
+  return P[b.p].n+' · '+(a===z?fmt(a):fmt(a)+'–'+fmt(z))+(f.length?' ('+f[0]+')':'');
+}
+function futureBlocks(){ return blocks().filter(b=>b.days[b.days.length-1]>=TODAY); }
+function fillSwap(){
+  const A=$('#swA'), W=$('#swWho'), B=$('#swB');
+  const keepA=A.value, keepW=W.value, keepB=B.value;
+  const fb=futureBlocks();
+  A.innerHTML='';
+  fb.filter(b=>!ROLE||ROLE==='ver'||b.p===ROLE).concat(ROLE&&ROLE!=='ver'?[]:[]).forEach(b=>{
+    const o=document.createElement('option'); o.value=b.days[0]; o.textContent=blockLabel(b); A.appendChild(o);
+  });
+  if(!A.children.length) fb.forEach(b=>{ const o=document.createElement('option'); o.value=b.days[0]; o.textContent=blockLabel(b); A.appendChild(o); });
+  if(keepA) A.value=keepA;
+  const a=fb.find(b=>b.days[0]===A.value);
+  W.innerHTML='';
+  ORDER.filter(k=>!a||k!==a.p).forEach(k=>{ const o=document.createElement('option'); o.value=k; o.textContent=P[k].n; W.appendChild(o); });
+  if(keepW && [...W.options].some(o=>o.value===keepW)) W.value=keepW;
+  B.innerHTML='<option value="">Nada — me lo cubre y ya se lo devolveré</option>';
+  fb.filter(b=>b.p===W.value).forEach(b=>{ const o=document.createElement('option'); o.value=b.days[0]; o.textContent=blockLabel(b); B.appendChild(o); });
+  if(keepB && [...B.options].some(o=>o.value===keepB)) B.value=keepB;
+  drawPreview();
+}
+function drawPreview(){
+  const fb=futureBlocks();
+  const a=fb.find(b=>b.days[0]===$('#swA').value);
+  const w=$('#swWho').value;
+  const b=$('#swB').value? fb.find(x=>x.days[0]===$('#swB').value) : null;
+  const box=$('#swPrev');
+  if(!a||!w){ box.innerHTML=''; return; }
+  const before=tally();
+  const ch=a.days.map(d=>({d,p:w})).concat(b?b.days.map(d=>({d,p:a.p})):[]);
+  const snap={}; ch.forEach(c=>{ snap[c.d]=ov[c.d]; ov[c.d]=Object.assign({},ov[c.d],{p:c.p}); });
+  const after=tally();
+  ch.forEach(c=>{ if(snap[c.d]===undefined) delete ov[c.d]; else ov[c.d]=snap[c.d]; });
+  let rows='';
+  ORDER.forEach(k=>{
+    const d1=before[k].d, d2=after[k].d; if(d1===d2 && before[k].f===after[k].f) return;
+    const df=d2-d1;
+    rows+='<div class="r"><span style="color:'+P[k].c+'">'+P[k].n+'</span><span>'+before[k].d+' → <b class="'+(df>0?'up':'dn')+'">'+d2+'</b> días · '+
+      before[k].f+' → <b>'+after[k].f+'</b> findes</span></div>';
+  });
+  box.innerHTML='<div class="prev"><div class="eyebrow" style="margin-bottom:6px">Cómo queda el reparto</div>'+rows+
+    (b?'':'<div class="r" style="border-top:1px solid var(--line);margin-top:6px;padding-top:8px"><span style="color:var(--mut)">Queda a deber</span><span><b>'+P[a.p].n+'</b> un turno a <b>'+P[w].n+'</b></span></div>')+
+    '</div>';
+}
+['#swA','#swWho','#swB'].forEach(id=>{ const e=$(id); if(e) e.onchange=()=>{ if(id!=='#swB') fillSwap(); else drawPreview(); }; });
+
+$('#swDo').onclick=()=>{
+  const fb=futureBlocks();
+  const a=fb.find(x=>x.days[0]===$('#swA').value);
+  const w=$('#swWho').value;
+  const b=$('#swB').value? fb.find(x=>x.days[0]===$('#swB').value) : null;
+  if(!a||!w) return toast('Elige primero el turno');
+  const ch=a.days.map(d=>({d,p:w})).concat(b?b.days.map(d=>({d,p:a.p})):[]);
+  const before=applyChanges(ch);
+  const entry={ts:Date.now(), from:a.p, to:w, aDays:a.days.slice(), bDays:b?b.days.slice():null,
+                code:encode(ch), before:before};
+  LOG.unshift(entry); saveLog(); refresh();
+  const txt='Cambio de txanda: '+P[a.p].n+' suelta '+(a.days[0]===a.days[a.days.length-1]?fmt(a.days[0]):fmt(a.days[0])+'–'+fmt(a.days[a.days.length-1]))+
+    ' y lo coge '+P[w].n+
+    (b?'. A cambio '+P[a.p].n+' se queda '+(b.days[0]===b.days[b.days.length-1]?fmt(b.days[0]):fmt(b.days[0])+'–'+fmt(b.days[b.days.length-1]))+'.'
+      :'. Queda a deberle un turno.')+
+    '\n\nPara que se os actualice la app, pegad este código en Cambios: '+entry.code;
+  if(navigator.share) navigator.share({text:txt}).catch(()=>{});
+  else window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+  toast('Cambio hecho — mándales el código');
+};
+
+$('#swApply').onclick=()=>{
+  const ch=decode($('#swCode').value);
+  if(!ch) return toast('Ese código no vale');
+  const before=applyChanges(ch);
+  LOG.unshift({ts:Date.now(), imported:true, code:encode(ch), before:before,
+               aDays:ch.map(c=>c.d), from:null, to:null, bDays:null});
+  saveLog(); $('#swCode').value=''; refresh(); toast('Cambio aplicado');
+};
+
+function saldo(){
+  const s={};
+  LOG.forEach(e=>{ if(e.imported||e.bDays) return;
+    const k=e.from+'>'+e.to; s[k]=(s[k]||0)+1;
+    const inv=e.to+'>'+e.from; if(s[inv]&&s[k]){ const m=Math.min(s[k],s[inv]); s[k]-=m; s[inv]-=m; }
+  });
+  return Object.entries(s).filter(([,v])=>v>0);
+}
+function drawSwap(){
+  fillSwap();
+  const sa=$('#swSaldo'), st=saldo();
+  sa.innerHTML = st.length? '' : '<p class="sub" style="margin:0">Nadie debe nada. Todo devuelto.</p>';
+  st.forEach(([k,v])=>{
+    const [a,b]=k.split('>');
+    sa.appendChild(el('div','li','<div class="lb"><span style="color:'+P[a].c+'">'+P[a].n+'</span> le debe a <span style="color:'+P[b].c+'">'+P[b].n+'</span></div><div class="pp">'+v+(v>1?' turnos':' turno')+'</div>'));
+  });
+  const lg=$('#swLog'); lg.innerHTML='';
+  if(!LOG.length){ lg.innerHTML='<p class="sub" style="margin:0">Todavía no se ha cambiado nada.</p>'; return; }
+  LOG.slice(0,12).forEach((e,i)=>{
+    const d=new Date(e.ts), f=pad(d.getDate())+'/'+pad(d.getMonth()+1);
+    const txt = e.imported ? 'Cambio recibido y aplicado'
+      : P[e.from].n+' → '+P[e.to].n+' · '+fmt(e.aDays[0])+(e.bDays?' a cambio de '+fmt(e.bDays[0]):' (sin devolver)');
+    const row=el('div','li','<div class="dt">'+f+'</div><div class="lb">'+txt+'</div>');
+    if(i===0 && !readonly()){
+      const u=el('button','','Deshacer'); u.style.cssText='font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:8px;padding:5px 9px';
+      u.onclick=()=>{ e.before.forEach(c=>{ ov[c.d]=Object.assign({},ov[c.d],{p:c.p}); }); save(); LOG.shift(); saveLog(); refresh(); toast('Cambio deshecho'); };
+      row.appendChild(u);
+    }
+    lg.appendChild(row);
+  });
+}
+
+/* ======================= UI ======================= */
+let tt;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2400); }
+function go(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.toggle('sel',x.id==='p-'+p));
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('sel',b.dataset.p===p));
+  window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>go(b.dataset.p));
+
+function drawToggle(){ const b=$('#tgSuelta'); b.textContent = SUELTA?'Sí':'No'; b.style.borderColor = SUELTA?'var(--ink)':'var(--line)'; }
+$('#tgSuelta').onclick=()=>{ SUELTA=!SUELTA; localStorage.setItem('txandaSuelta',SUELTA?'1':'0'); refresh(); toast(SUELTA?'Los días sueltos suman noche':'Los días sueltos no suman noche'); };
+
+function applyRole(){
+  const ro=readonly();
+  document.querySelectorAll('#expJson,#impJson,#resetJson,#tgSuelta,#swDo').forEach(b=>b.style.display=ro?'none':'');
+  ['#swA','#swWho','#swB'].forEach(i=>{ const e=$(i); if(e) e.disabled=ro; });
+  const pv=$('#swPrev'); if(pv&&ro) pv.innerHTML='<p class="sub">En modo consulta no se cambian turnos. Sí puedes aplicar un código que te manden.</p>';
+  const cal=$('#p-cal').querySelector('p.sub');
+  if(cal) cal.textContent = ro? 'Toca un día para ver de quién es.' : 'Toca cualquier día para cambiar de quién es. Los cambios se guardan solo en este móvil.';
+}
+function refresh(){
+  cinta(); drawHero(); drawTally($('#tallyMini'),false); drawTally($('#tallyFull'),true);
+  drawCuadre(); drawBlocks(); drawMaria(); drawRole(); drawFest(); drawMonth(); drawToggle(); drawSwap(); applyRole();
+}
+refresh();
+if(!ROLE){ go('set'); }
+
+/* aviso semanal mientras la app esté abierta */
+if(localStorage.getItem('txandaNotif')==='1' && 'Notification' in window && Notification.permission==='granted'){
+  const last=localStorage.getItem('txandaLastNotif');
+  const d=new Date();
+  if(d.getDay()===4 && last!==TODAY){
+    const cb=currentBlock();
+    if(cb){ new Notification('Este finde', {body: msgFor(cb.b)}); localStorage.setItem('txandaLastNotif',TODAY); }
+  }
+}
+</script>
+</body>
+</html>

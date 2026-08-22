@@ -34,3 +34,4 @@ Sin ese cambio, los dispositivos que ya tengan la app instalada pueden seguir mo
 - Conviene **instalar la app** en la pantalla de inicio, no dejarla como pestaña del navegador. En iPhone, Safari borra los datos de las webs no instaladas tras unos días sin uso, y con ellos se perderían los cambios de turnos guardados.
 - Los cambios de turno se comparten entre dispositivos mediante los códigos `TX1.…` que genera la propia app.
 - El botón **Exportar** de la pantalla de avisos guarda una copia de seguridad de los cambios.
+Publicado con GitHub Pages.

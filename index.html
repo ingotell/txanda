@@ -319,11 +319,22 @@ p.sub{color:var(--mut);font-size:13.5px;margin:2px 0 10px}
     </div>
   </div>
 
+  <div class="card" id="instCard" style="display:none">
+    <div class="eyebrow">Instalar</div>
+    <div style="font-family:var(--disp);font-weight:600;font-size:18px;letter-spacing:-.02em;margin:6px 0 4px">Ponerla en la pantalla de inicio</div>
+    <p class="sub" id="instTxt">Se instala como una app de verdad: icono propio, pantalla completa y funciona sin cobertura.</p>
+    <div class="btnrow"><button class="btn solid" id="instBtn">Instalar la app</button></div>
+  </div>
+
   <details>
     <summary>Instalarlo en la pantalla de inicio</summary>
-    <p>En Android, Chrome → menú ⋮ → «Añadir a pantalla de inicio».<br>
-    En iPhone, Safari → compartir → «Añadir a pantalla de inicio».<br>
-    Se abre a pantalla completa y funciona sin cobertura.</p>
+    <p>En Android tiene que ser <b>Chrome</b>: menú ⋮ → si aparece «Instalar aplicación», ésa es la buena.
+    Si solo ves «Añadir a pantalla de inicio», cierra la pestaña, vuelve a abrir la dirección, espera a que
+    cargue del todo y mira otra vez: la primera visita deja preparada la instalación y hace falta recargar
+    una vez.<br><br>
+    En iPhone, Safari → compartir → «Añadir a pantalla de inicio». Safari siempre lo llama así, y aun con ese
+    nombre queda instalada a pantalla completa.<br><br>
+    Firefox y Samsung Internet crean solo un acceso directo; para instalarla de verdad, usa Chrome o Safari.</p>
   </details>
 
   <details>
@@ -855,6 +866,30 @@ function drawSwap(){
     }
     lg.appendChild(row);
   });
+}
+
+/* ======================= INSTALACIÓN ======================= */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',ev=>{
+  ev.preventDefault(); deferredPrompt=ev;
+  const c=$('#instCard'); if(c) c.style.display='';
+});
+window.addEventListener('appinstalled',()=>{
+  deferredPrompt=null;
+  const c=$('#instCard'); if(c) c.style.display='none';
+  toast('Instalada. Ábrela desde su icono');
+});
+const instB=$('#instBtn');
+if(instB) instB.onclick=async()=>{
+  if(!deferredPrompt) return toast('Usa el menú del navegador');
+  deferredPrompt.prompt();
+  const r=await deferredPrompt.userChoice;
+  deferredPrompt=null;
+  if(r.outcome!=='accepted') toast('Instalación cancelada');
+};
+/* si ya está instalada, no ofrecerlo */
+if(window.matchMedia && window.matchMedia('(display-mode: standalone)').matches){
+  const c=$('#instCard'); if(c) c.style.display='none';
 }
 
 /* ======================= UI ======================= */
